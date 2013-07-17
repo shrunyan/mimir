@@ -1,0 +1,77 @@
+/**
+ * webdown | Web based MarkDown editor
+ * @author | Stuart Runyan
+ *
+ */
+html,
+body,
+#editor {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#app {
+    font-family: arial;
+    font-size: 16px;
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+/**
+ * App Menu
+ */
+#app header {
+    background-color: #AAA;
+}
+#app nav {
+    height: 30px;
+    /*max-width: 680px;
+    margin: 0 auto;*/
+    width: 100%;
+}
+#app nav a,
+#app nav a:visited {
+    color: #EEE;
+    text-decoration: none;
+}
+
+
+/**
+ * Notes
+ */
+#notes {
+
+    display: none;
+
+    background-color: #999;
+    color: #EEE;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1em 2em;
+    height: 100%;
+    width: 70%;
+}
+#notes nav {
+    background-color: #666;
+}
+
+
+
+/**
+ * Editor
+ */
+#editor {
+    /*max-width: 680px;
+    margin: 0 auto;*/
+}
+#editor #note {
+    color: #666;
+    border: none;
+    font-size: 16px;
+    height: 90%;
+    padding: 5%;
+    text-align: left;
+    width: 90%;
+}
