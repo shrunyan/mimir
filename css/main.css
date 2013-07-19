@@ -42,7 +42,7 @@ body,
  */
 #notes {
 
-    display: none;
+    /*display: none;*/
 
     background-color: #999;
     color: #EEE;
@@ -51,7 +51,7 @@ body,
     left: 0;
     padding: 1em 2em;
     height: 100%;
-    width: 70%;
+    width: 50%;
 }
 #notes nav {
     background-color: #666;

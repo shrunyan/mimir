@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Webdown</title>
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
+</head>
+
+<body>
+    <section id="app">
+
+        <header>
+            <nav>
+                <a href="#menu" class="menu">Menu</a>
+                <a href="#new-note" class="new-note">New Note</a>
+                <a href="#save" class="save">Save</a>
+                <a href="#settings" class="settings">Settings</a>
+            </nav>
+        </header>
+
+        <form action="/" id="editor">
+            <textarea name="note" id="note" cols="30" rows="10">Hi, would you like to take some notes?</textarea>
+        </form>
+
+        <section id="notes">
+
+            <nav>
+                <a href="#new-category">New Category</a>
+            </nav>
+
+            <!-- Notes get inserted here -->
+
+            <!-- <article class="category">
+                <h2 >Clilents</h2>
+                <ul>
+                    <li>Client X</li>
+                    <li>Client Y</li>
+                    <li>Client Z</li>
+                </ul>
+            </article> -->
+        </section>
+
+    </section><!-- /app -->
+
+<!--
+    Let's Get Scripty
+-->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+<script src="lib/zepto.min.js"></script> -->
+<script src="lib/json2.js"></script>
+<script src="lib/jquery.js"></script>
+<script src="lib/underscore.js"></script>
+<script src="lib/backbone.js"></script>
+<script src="lib/backbone.localStorage.js"></script>
+<script src="app.js"></script>
+
+
+<script type="text/template" id="note-template">
+    <a href="#load" id="#load"><%- title %></a>
+</script>
+<script type="text/template" id="stats-template">
+<p>WTFFFFFFFF</p>
+/*<% if (done) { %>
+<a id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>
+<% } %>
+
+<div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>*/
+</script>
+
+</body>
+</html>
