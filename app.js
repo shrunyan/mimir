@@ -3,13 +3,18 @@
  * @author Stuart Runyan
  * @beta 0.0.1
  *
- * Based on: http://backbonejs.org/docs/todos.html
- * and: http://tutorialzine.com/2013/04/services-chooser-backbone-js/
+ * Code started here: http://backbonejs.org/docs/todos.html and: http://tutorialzine.com/2013/04/services-chooser-backbone-js/
+ *
+ * Dependencies:
+ * Backbone JS: http://backbonejs.org
+ * Dropbox: https://www.dropbox.com/developers/dropins
+ *
  */
 (function(){
 
+    console.log('Hello. Interested in what makes this tick? Click here -> https://github.com/shrunyan/webdown');
+
     var app = {};
-          //notes = [];
 
     app.Note = Backbone.Model.extend({
         //localStorage: new Backbone.LocalStorage('notes-backbone'),
@@ -104,79 +109,122 @@
             //save this collection
         }
     });
-    // var ntoes = new Backbone.collection();
-    var notes = new app.Notes();
+
+    /*var notes = new app.Notes();
     notes.add([
         {id: 1, title: 'tet ad test', content: 'fuck dis'},
         {id: 2, title: 'tetaa   aef test', content: 'fuck dis'},
         {id: 3, title: 'tet te a df st', content: 'fuck dis'}
-    ]);
+    ]);*/
 
-    console.log(notes.length);
+    // How long is the collection
+    //console.log(notes.length);
 
-    notes.forEach(function(model){
+    // What are the model titles
+    /*notes.forEach(function(model){
         console.log(model.get('title'));
-    });
+    });*/
 
-    console.log(notes.pluck('content'));
+    // Get a list of model content
+    //console.log(notes.pluck('content'));
+
+
 
 
 
     app.AppView = Backbone.View.extend({
         el: '#app',
-        note_cur: $('#editor textarea'),
-        notes_list: $('#notes'),
+        editor: $('#editor textarea'),
+        list: $('#notes'),
+        notes: new app.Notes(),
         events: {
             'click .load' : 'loadNote',
             'click .save' : 'saveNote',
             'click .new-note' : 'newNote',
             'click .menu' : 'menu',
-            'click .settings' : 'settings'
+            'click .settings' : 'settings',
+            'dblclick .load' : 'editNote'
         },
-        template: _.template('<a href="#load" class="load"><%- title %></a>'),
+        template: _.template('<li><a href="#load" class="load"><%- title %></a></li>'),
         initialize: function() {
             console.log('AppView:initialize');
 
             // Get All notes from localStorage
             // then render their titles in menu
-            this.render();
+            var notes = localStorage;
+            for (var title in notes) {
+                this.render(title);
+            }
         },
-        render: function(){
+        render: function(title){
             console.log('AppView:render');
-            this.notes_list.html(this.template({
-                title: 'Note One'
+            this.list.append(this.template({
+                title: title
             }));
         },
-        loadNote: function() {
+        loadNote: function(e) {
             console.log('AppView:loadNote');
-            console.log(this);
+            console.log(e);
+
+            //var title = $(e.currentTarget).html();
+            var title = e.target.innerHTML;
+            var content = localStorage.getItem(title);
+            this.editor.val(content);
+            this.editor.attr('data-title', title);
+
         },
         saveNote: function() {
             console.log('AppView:saveNote');
-            var content = this.note_cur.val();
-            console.log(content);
+
+            var content = this.editor.val();
+            var title = this.editor.attr('data-title');
+
+            localStorage.setItem(title, content);
+
         },
         newNote: function() {
             console.log('AppView:newNote');
+
             var note = new app.Note();
+            //console.log(note);
+            this.notes.add(note);
+
+            this.render(note.attributes.title);
+            //this.loadNote(note);
+            this.editor.val(note.attributes.content);
+            this.editor.attr('data-title', note.attributes.title);
+        },
+        editNote: function(e) {
+            console.log('AppView:editNote');
+
+            var link = $(e.currentTarget);
+            var cur_title = link.html();
+            var edit = '<input type="text" placeholder="'+cur_title+'" />';
+
+            link.html(edit);
+            link.find('input').focus().on('blur', function(e){
+                var input = $(e.currentTarget);
+                var new_title = input.val();
+                input.parent('.load').html(new_title);
+                this.editor.attr('data-title', new_title);
+            });
 
         },
         menu: function() {
             console.log('AppView:menu');
+
+            this.list.toggle();
         },
         settings: function() {
             console.log('AppView:settings');
+            alert('This will be a settings modal.');
         }
     });
 
     /**
      * Party Time!!!
      */
-    //app.appView = new app.AppView();
+    app.appView = new app.AppView();
 
-
-    /*return {
-        notes: notes
-    };*/
 
 })();
