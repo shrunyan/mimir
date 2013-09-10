@@ -46,10 +46,13 @@
                 padding: 15px 10px;
             }
             .snap-drawers nav a {
-                font-family: 'entyporegular', Arial;
+                font-family: 'entyporegular';
                 font-size: 18px;
                 color: #333;
                 margin: 3%;
+            }
+            .edit {
+                font-family: 'entyporegular', Arial;
             }
             #notes {
                 background-color: #444;
@@ -63,6 +66,23 @@
                 height: 100%;
                 border: none;
                 box-shadow: none;
+            }
+
+            #notes li {
+                margin: 0;
+                padding: 0;
+            }
+            #notes .load {
+                display: block;
+                margin: 0;
+                padding: 1em;
+                position: relative;
+                width: ;
+            }
+            .edit {
+                position: absolute;
+                top: 35%;
+                right: 5%;
             }
         </style>
 
@@ -152,11 +172,6 @@ What is markdown you ask? We'll you can find out more information here; [Markdow
     <script src="lib/backbone.localStorage.js"></script>
     <script src="lib/backbone.touch.min.js"></script>
     <script src="app.js"></script>
-
-    <script type="text/template" id="note-template">
-        <a href="#load" id="#load"><%- title %></a>
-    </script>
-
 
     </body>
 </html>

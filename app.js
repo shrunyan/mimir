@@ -144,9 +144,10 @@
             'click .menu' : 'menu',
             'click .settings' : 'settings',
             'dblclick .load' : 'editNote',
+            'click .edit' : 'editNote',
             'keyup #note' : 'saveNote'
         },
-        template: _.template('<li><a href="#load" class="load"><%- title %></a></li>'),
+        template: _.template('<li><a href="#load" class="load"><span class="title"><%- title %></span><span class="edit">&#9998;</span></a></li>'),
         initialize: function() {
             console.log('AppView:initialize');
 
@@ -165,14 +166,15 @@
         },
         loadNote: function(e) {
             console.log('AppView:loadNote');
-            console.log(e);
+            //console.log(e);
 
-            //var title = $(e.currentTarget).html();
-            var title = e.target.innerHTML;
+            var el = $(e.currentTarget);
+            var title = el.find('.title').html();
             var content = localStorage.getItem(title);
+
             this.editor.val(content);
             this.editor.attr('data-title', title);
-            $('.title').html(title);
+            $('.bar-title .title').html(title);
         },
         saveNote: function() {
             console.log('AppView:saveNote');
@@ -198,16 +200,29 @@
         editNote: function(e) {
             console.log('AppView:editNote');
 
-            var link = $(e.currentTarget);
-            var cur_title = link.html();
-            var edit = '<input type="text" placeholder="'+cur_title+'" />';
+            // Store reference to editor; we lose it later the "on" function
+            var editor = this.editor;
 
-            link.html(edit);
-            link.find('input').focus().on('blur', function(e){
+            var el = $(e.currentTarget);
+            var parEl = el.parent('.load');
+            var orgTitle = el.prev().html();
+            var edit = '<input type="text" placeholder="Enter a new title" />';
+            var content = editor.val();
+
+            parEl.html(edit);
+            parEl.find('input').focus().on('blur', function (e) {
+
                 var input = $(e.currentTarget);
-                var new_title = input.val();
-                input.parent('.load').html(new_title);
-                this.editor.attr('data-title', new_title);
+                var newTitle = input.val();
+
+                if (newTitle.length > 0) {
+                    parEl.html('<span class="title">' + newTitle + '</span><span class="edit">&#9998;</span>');
+                } else {
+                    parEl.html('<span class="title">' + orgTitle + '</span><span class="edit">&#9998;</span>');
+                }
+
+                // Reset content
+                editor.val(content);
             });
 
         },
