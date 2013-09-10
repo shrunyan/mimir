@@ -19,11 +19,19 @@
 
         <link rel="stylesheet" href="/css/snap.css">
         <link rel="stylesheet" href="/css/ratchet.css">
+        <link rel="stylesheet" href="/css/main.css">
 
         <script src="/lib/ratchet.js"></script>
 
         <!-- Intro paragraph styles. Delete once you start using this page -->
         <style type="text/css">
+            body {
+                font-family: 'source_sans_proregular';
+                font-size: 16px;
+            }
+            #toggle-left {
+                font-size: 24px;
+            }
             .snap-drawers .list{margin: 0;}
             h2{
                 padding: 15px;
@@ -32,6 +40,16 @@
             }
             .snap-drawers {
                 background-color: #444;
+            }
+            .snap-drawers nav {
+                background: #FFF;
+                padding: 15px 10px;
+            }
+            .snap-drawers nav a {
+                font-family: 'entyporegular', Arial;
+                font-size: 18px;
+                color: #333;
+                margin: 3%;
             }
             #notes {
                 background-color: #444;
@@ -54,9 +72,8 @@
     <div class="snap-drawers">
         <div class="snap-drawer snap-drawer-left" id="left-drawer">
             <nav>
-                <a href="#new-note" class="new-note">New Note</a>
-                <a href="#save" class="save">Save</a>
-                <a href="#settings" class="settings">Settings</a>
+                <a href="#new-note" class="new-note">New &oplus;</a>
+                <!-- <a href="#settings" class="settings">Settings &#9874;</a> -->
             </nav>
             <ul  id="notes" class="list">
                 <!-- Load Note List Here -->
@@ -68,7 +85,7 @@
     <div id="content" class="snap-content">
 
         <header class="bar-title">
-            <button class="button" id="toggle-left">Menu</button>
+            <button class="button" id="toggle-left">&#9776;</button>
             <h1 class="title">WebDown</h1>
         </header>
 

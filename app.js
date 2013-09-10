@@ -143,7 +143,8 @@
             'click .new-note' : 'newNote',
             'click .menu' : 'menu',
             'click .settings' : 'settings',
-            'dblclick .load' : 'editNote'
+            'dblclick .load' : 'editNote',
+            'keyup #note' : 'saveNote'
         },
         template: _.template('<li><a href="#load" class="load"><%- title %></a></li>'),
         initialize: function() {
@@ -171,7 +172,7 @@
             var content = localStorage.getItem(title);
             this.editor.val(content);
             this.editor.attr('data-title', title);
-
+            $('.title').html(title);
         },
         saveNote: function() {
             console.log('AppView:saveNote');
