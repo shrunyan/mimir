@@ -1,7 +1,7 @@
 /**
- * Sizz App
+ * Mímir
  * @author Stuart Runyan
- * @beta 0.0.1
+ * @alpha 0.1.0
  *
  * Code started here: http://backbonejs.org/docs/todos.html and: http://tutorialzine.com/2013/04/services-chooser-backbone-js/
  *
@@ -9,15 +9,17 @@
  * Backbone JS: http://backbonejs.org
  * Dropbox: https://www.dropbox.com/developers/dropins
  *
+ * DataBinding
+ * http://rivetsjs.com/
+ * https://github.com/theironcook/Backbone.ModelBinder
+ *
  */
 (function(){
-
-    //console.log('Hello. Interested in what makes this tick? Click here -> https://github.com/shrunyan/webdown');
+    console.log('Hello. Interested in what makes this tick? Click here -> https://github.com/shrunyan/webdown');
 
     var app = {};
 
     app.Note = Backbone.Model.extend({
-        //localStorage: new Backbone.LocalStorage('notes-backbone'),
         defaults: function(){
             return {
                 id: 1,
@@ -50,16 +52,6 @@
             localStorage.setItem(this.get('title'), this.get('content'));
         }
     });
-    //var note = new app.Note();
-    //note.set('title', 'testing out a new');
-    //note.set('content', 'changing the content test');
-
-    /*notes.push(new app.Note());
-    notes.push(new app.Note());
-    notes.push(new app.Note());
-
-    console.log(notes);*/
-
 
 
     app.NoteView = Backbone.View.extend({
@@ -110,26 +102,6 @@
         }
     });
 
-    /*var notes = new app.Notes();
-    notes.add([
-        {id: 1, title: 'tet ad test', content: 'fuck dis'},
-        {id: 2, title: 'tetaa   aef test', content: 'fuck dis'},
-        {id: 3, title: 'tet te a df st', content: 'fuck dis'}
-    ]);*/
-
-    // How long is the collection
-    //console.log(notes.length);
-
-    // What are the model titles
-    /*notes.forEach(function(model){
-        console.log(model.get('title'));
-    });*/
-
-    // Get a list of model content
-    //console.log(notes.pluck('content'));
-
-
-
 
 
     app.AppView = Backbone.View.extend({
@@ -153,7 +125,9 @@
 
             // Get All notes from localStorage
             // then render their titles in menu
+
             var notes = localStorage;
+            // Do these need to be handed to the collection? And the collection would render them?
             for (var title in notes) {
                 this.render(title);
             }
@@ -166,7 +140,6 @@
         },
         loadNote: function(e) {
             console.log('AppView:loadNote');
-            //console.log(e);
 
             var el = $(e.currentTarget);
             var title = el.find('.title').html();
@@ -174,6 +147,7 @@
 
             this.editor.val(content);
             this.editor.attr('data-title', title);
+
             $('.bar-title .title').html(title);
         },
         saveNote: function() {
@@ -183,7 +157,6 @@
             var title = this.editor.attr('data-title');
 
             localStorage.setItem(title, content);
-
         },
         newNote: function() {
             console.log('AppView:newNote');
