@@ -1,17 +1,13 @@
 /**
  * Mímir
  * @author Stuart Runyan
+ * @version 0.2.0 Adding grunt build system
  * @alpha 0.1.0
  *
- * Code started here: http://backbonejs.org/docs/todos.html and: http://tutorialzine.com/2013/04/services-chooser-backbone-js/
+ * @tutorial ["http://backbonejs.org/docs/todos.html", "http://tutorialzine.com/2013/04/services-chooser-backbone-js/"]
  *
- * Dependencies:
- * Backbone JS: http://backbonejs.org
- * Dropbox: https://www.dropbox.com/developers/dropins
- *
- * DataBinding
- * http://rivetsjs.com/
- * https://github.com/theironcook/Backbone.ModelBinder
+ * @required "http://backbonejs.org"
+ * @required "https://www.dropbox.com/developers/dropins"
  *
  */
 (function(){
