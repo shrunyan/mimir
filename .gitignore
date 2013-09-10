@@ -16,9 +16,7 @@ sdist
 develop-eggs
 .installed.cfg
 
-# using this naming convetion
-# lib
-
+lib
 lib64
 
 # Installer logs

@@ -1,19 +1,13 @@
-# Mímir
-_Markdow note taking web app_
+# Mímir: [Pronunciation](http://www.forvo.com/word/m%C3%ADmir/)
+_Markdown note taking web app_
 
-## Technologies:
+## Tech Stack:
 
-### [Backbone.js](http://backbonejs.org)
-This is the underlining framework which organizes all the client side code for this application.
+- [Backbone.js](http://backbonejs.org) This is the underlining framework which organizes all the client side code for this application.
+- [Underscore.js](http://underscorejs.org/) Backbone has a hard dependency on Underscorejs
+- [Zepto.js](http://zeptojs.com/) This library is used for DOM access. Like jQuery but a lot lighter.
+- [Dropbox](https://www.dropbox.com/developers) Used for saving notes as files and giving cross device access.
 
-#### [Underscore.js](http://underscorejs.org/)
-Backbone has a hard dependency on Underscorejs
-
-### [Zepto.js](http://zeptojs.com/)
-This library is used for DOM access. Like jQuery but a lot lighter.
-
-### [Dropbox](https://www.dropbox.com/developers)
-Used for saving notes as files and giving cross device access.
 
 
 ## Features/ToDo:
@@ -35,12 +29,6 @@ __Drawer Interaction: (Checkout)__
 
 
 
-## License
-
-Ummm yea I'll choose one of these.
-
-
-
 ## Misc Resources to look at
 
 - https://github.com/bergie/hallo
@@ -52,3 +40,8 @@ Ummm yea I'll choose one of these.
 - http://headjs.com/
 
 - https://github.com/tholman/zenpen
+
+
+## License
+
+Ummm yea I'll choose one of these.
