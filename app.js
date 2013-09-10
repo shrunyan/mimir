@@ -12,7 +12,7 @@
  */
 (function(){
 
-    console.log('Hello. Interested in what makes this tick? Click here -> https://github.com/shrunyan/webdown');
+    //console.log('Hello. Interested in what makes this tick? Click here -> https://github.com/shrunyan/webdown');
 
     var app = {};
 
