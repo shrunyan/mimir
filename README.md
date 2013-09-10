@@ -1,8 +1,5 @@
-# Webdown:
-_Web based markdown editor_
-
-https://github.com/shrunyan/zenpen
-
+# Mímir
+_Markdow note taking web app_
 
 ## Technologies:
 
@@ -28,7 +25,7 @@ Used for saving notes as files and giving cross device access.
  - If note list title noted changed, replace original title
  - HTML export?
  - PDF export?
- - create apple mobile web app capable
+ - ~~create apple mobile web app capable~~
 
 
 __Drawer Interaction: (Checkout)__
