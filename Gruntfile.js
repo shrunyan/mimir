@@ -64,6 +64,7 @@ module.exports = function(grunt) {
                 {expand: true, cwd: 'app/', src: ['fonts/**'], dest: 'build/'},
                 {expand: true, cwd: 'app/', src: ['img/**'], dest: 'build/'},
                 {expand: true, cwd: 'app/', src: ['index.html'], dest: 'build/'},
+                {expand: true, cwd: 'app/', src: ['mimir.manifest'], dest: 'build/'},
             ]
         }
      }
