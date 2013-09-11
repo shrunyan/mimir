@@ -1,8 +1,6 @@
 /**
  * Mímir
  * @author Stuart Runyan
- * @version 0.2.0 Adding grunt build system
- * @alpha 0.1.0
  *
  * @tutorial ["http://backbonejs.org/docs/todos.html", "http://tutorialzine.com/2013/04/services-chooser-backbone-js/"]
  *
@@ -10,12 +8,15 @@
  * @required "https://www.dropbox.com/developers/dropins"
  *
  */
-(function(){
+(function($){
     console.log('Hello. Interested in what makes this tick? Click here -> https://github.com/shrunyan/webdown');
+    var mimir = {};
 
-    var app = {};
 
-    app.Note = Backbone.Model.extend({
+    /**
+     * Note Model
+     */
+    mimir.Note = Backbone.Model.extend({
         defaults: function(){
             return {
                 id: 1,
@@ -24,7 +25,7 @@
             };
         },
         initialize: function() {
-            console.log('Note Created');
+            //console.log('Note Created');
 
             // Listen for changes
             this.on('change:title', function() {
@@ -38,7 +39,7 @@
             });
         },
         save: function() {
-            console.log('Note:save');
+            //console.log('Note:save');
 
             // Remove note
             //localStorage.removeItem(this.get('title'));
@@ -50,7 +51,10 @@
     });
 
 
-    app.NoteView = Backbone.View.extend({
+    /**
+     * Note View
+     */
+    mimir.NoteView = Backbone.View.extend({
         tagName: 'li',
         notes_list: $('#notes'),
         template: _.template('<a href="#load" class="load"><%- title %></a>'),
@@ -60,12 +64,12 @@
             'keypress .edit': 'updateOnEnter'
         },
         initialize: function() {
-            console.log('NoteView:initialize');
+            //console.log('NoteView:initialize');
             //this.listenTo(this.model, 'change', this.render);
             this.render();
         },
         render: function() {
-            console.log('NoteView:render');
+            //console.log('NoteView:render');
             var html = this.model.toJSON();
             console.log(html);
             //console.log(this.model.get('title'));
@@ -74,23 +78,23 @@
             return this;
         },
         edit: function() {
-            console.log('NoteView:edit');
+            //console.log('NoteView:edit');
         },
         load: function() {
-            console.log('NoteView:load');
+            //console.log('NoteView:load');
             //$('#editor textarea').val(this.get('content'));
         }
     });
-    //var noteView = new app.NoteView();
 
 
-
-
-    app.Notes = Backbone.Collection.extend({
-        model: app.Note,
+    /**
+     * Notes Collection
+     */
+    mimir.Notes = Backbone.Collection.extend({
+        model: mimir.Note,
         localStorage: new Backbone.LocalStorage('notes-backbone'),
         open: function() {
-            console.log('NoteList:open');
+            //console.log('NoteList:open');
             $('#editor textarea').val(this.model.content);
         },
         save: function() {
@@ -100,24 +104,24 @@
 
 
 
-    app.AppView = Backbone.View.extend({
+    mimir.AppView = Backbone.View.extend({
         el: '#app',
         editor: $('#editor textarea'),
         list: $('#notes'),
-        notes: new app.Notes(),
+        notes: new mimir.Notes(),
         events: {
             'click .load' : 'loadNote',
             'click .save' : 'saveNote',
             'click .new-note' : 'newNote',
-            'click .menu' : 'menu',
-            'click .settings' : 'settings',
+            //'click .menu' : 'menu',
+            'click .dropbox' : 'dropbox',
             'dblclick .load' : 'editNote',
             'click .edit' : 'editNote',
             'keyup #note' : 'saveNote'
         },
         template: _.template('<li><a href="#load" class="load"><span class="title"><%- title %></span><span class="edit">&#9998;</span></a></li>'),
         initialize: function() {
-            console.log('AppView:initialize');
+            //console.log('AppView:initialize');
 
             // Get All notes from localStorage
             // then render their titles in menu
@@ -129,13 +133,13 @@
             }
         },
         render: function(title){
-            console.log('AppView:render');
+            //console.log('AppView:render');
             this.list.append(this.template({
                 title: title
             }));
         },
         loadNote: function(e) {
-            console.log('AppView:loadNote');
+            //console.log('AppView:loadNote');
 
             var el = $(e.currentTarget);
             var title = el.find('.title').html();
@@ -147,7 +151,7 @@
             $('.bar-title .title').html(title);
         },
         saveNote: function() {
-            console.log('AppView:saveNote');
+            //console.log('AppView:saveNote');
 
             var content = this.editor.val();
             var title = this.editor.attr('data-title');
@@ -155,9 +159,9 @@
             localStorage.setItem(title, content);
         },
         newNote: function() {
-            console.log('AppView:newNote');
+            //console.log('AppView:newNote');
 
-            var note = new app.Note();
+            var note = new mimir.Note();
             //console.log(note);
             this.notes.add(note);
 
@@ -167,7 +171,7 @@
             this.editor.attr('data-title', note.attributes.title);
         },
         editNote: function(e) {
-            console.log('AppView:editNote');
+            //console.log('AppView:editNote');
 
             // Store reference to editor; we lose it later the "on" function
             var editor = this.editor;
@@ -195,21 +199,19 @@
             });
 
         },
-        menu: function() {
-            console.log('AppView:menu');
-
+        /*menu: function() {
+            //console.log('AppView:menu');
             this.list.toggle();
-        },
-        settings: function() {
-            console.log('AppView:settings');
-            alert('This will be a settings modal.');
+        },*/
+        dropbox: function() {
+            //console.log('AppView:settings');
+            alert('This will be a dropbox login modal.');
         }
     });
 
     /**
      * Party Time!!!
      */
-    app.appView = new app.AppView();
+    new mimir.AppView();
 
-
-})();
+})(jQuery);

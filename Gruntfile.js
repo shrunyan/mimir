@@ -3,20 +3,46 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    uglify: {
-        build: {
-            src: ['build/js/<%= pkg.name %>.js'],
-            dest: ['build/js/<%= pkg.name %>.min.js']
+    concat: {
+        options: {
+            separator: ';'
+        },
+        libs: {
+            src: ['app/js/vendors/json2.js', 'app/js/vendors/jquery.js', 'app/js/vendors/underscore.js'],
+            dest: 'build/js/lib.js'
+        },
+        backbone: {
+            src: ['app/js/vendors/backbone.js', 'app/js/vendors/backbone.localStorage.js', 'app/js/vendors/backbone.touch.js'],
+            dest: 'build/js/backbone.js'
+        },
+        ui: {
+            src: ['app/js/ratchet.js', 'app/js/snap.js'],
+            dest: 'build/js/ui.js'
         }
     },
-    concat: {
-        build: {
-            options: {
-                //stripBanners: true,
-                banner: '/*! <%= pkg.name %>.js | <%= pkg.version %> | <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-            },
-            src: ['app/js/vendors/underscore.js', 'app/js/vendors/jquery.js', 'app/js/json2.js', 'app/js/vendors/backbone.js', 'app/js/vendors/backbone.localStorage.js', 'app/js/vendors/backbone.touch.min.js', 'app/js/snap.js', 'app/js/ratchet.js', 'app/js/<%= pkg.name %>.js'],
-            dest: 'build/js/<%= pkg.name %>.js'
+    uglify: {
+        options: {
+            banner: '/*! <%= pkg.name %>.min.js | <%= pkg.version %> | <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        },
+        libs: {
+            files: {
+                'build/js/libs.min.js': ['<%= concat.libs.dest %>']
+            }
+        },
+        backbone: {
+            files: {
+                'build/js/backbone.min.js': ['<%= concat.backbone.dest %>']
+            }
+        },
+        ui: {
+            files: {
+                'build/js/ui.min.js': ['<%= concat.ui.dest %>']
+            }
+        },
+        app: {
+            files: {
+                'build/js/mimir.min.js': 'app/js/mimir.js'
+            }
         }
     },
     jshint: {
@@ -25,10 +51,10 @@ module.exports = function(grunt) {
     cssmin: {
         build: {
             options: {
-                banner: '/*! <%= pkg.name %>.css | <%= pkg.version %> | <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                banner: '/*! <%= pkg.name %>.min.css | <%= pkg.version %> | <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             files: {
-                'build/css/<%= pkg.name %>.css': ['app/css/**/*.css']
+                'build/css/<%= pkg.name %>.min.css': ['app/css/**/*.css']
             }
         }
     },

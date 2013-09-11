@@ -16,77 +16,7 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/touch-icons/apple-touch-icon-72x72.png">
         <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/touch-icons/apple-touch-icon-57x57.png">
 
-        <!--
-        <link rel="stylesheet" href="/css/snap.css">
-        <link rel="stylesheet" href="/css/ratchet.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <script src="/lib/ratchet.js"></script>
-        -->
-
-        <link rel="stylesheet" href="/css/mimir.css">
-
-        <!-- Intro paragraph styles. Delete once you start using this page -->
-        <style type="text/css">
-            body {
-                font-family: 'source_sans_proregular';
-                font-size: 16px;
-            }
-            #toggle-left {
-                font-size: 24px;
-            }
-            .snap-drawers .list{margin: 0;}
-            h2{
-                padding: 15px;
-                font-weight: normal;
-                font-size: 36px;
-            }
-            .snap-drawers {
-                background-color: #444;
-            }
-            .snap-drawers nav {
-                background: #FFF;
-                padding: 15px 10px;
-            }
-            .snap-drawers nav a {
-                font-family: 'entyporegular';
-                font-size: 18px;
-                color: #333;
-                margin: 3%;
-            }
-            .edit {
-                font-family: 'entyporegular', Arial;
-            }
-            #notes {
-                background-color: #444;
-                color: #FFF;
-            }
-            .content-padded,
-            #editor {
-                height: 100%;
-            }
-            #editor textarea {
-                height: 100%;
-                border: none;
-                box-shadow: none;
-            }
-
-            #notes li {
-                margin: 0;
-                padding: 0;
-            }
-            #notes .load {
-                display: block;
-                margin: 0;
-                padding: 1em;
-                position: relative;
-                width: ;
-            }
-            .edit {
-                position: absolute;
-                top: 35%;
-                right: 5%;
-            }
-        </style>
+        <link rel="stylesheet" href="/css/mimir.min.css">
 
     </head>
     <body id="app">
@@ -95,11 +25,25 @@
         <div class="snap-drawer snap-drawer-left" id="left-drawer">
             <nav>
                 <a href="#new-note" class="new-note">New &oplus;</a>
-                <!-- <a href="#settings" class="settings">Settings &#9874;</a> -->
             </nav>
             <ul  id="notes" class="list">
                 <!-- Load Note List Here -->
             </ul>
+        </div>
+        <div class="snap-drawer snap-drawer-right">
+            <div class="settings">
+                <section>
+                    <h2>About</h2>
+                    <p>This is an application for taking notes, specifically with Markdown.</p>
+                    <p>Developed by <a href="http://stuartrunyan.com">Stuart Runyan</a></p>
+                </section>
+                <!-- <section>
+                    <h2>Settings</h2>
+                    <ul class="list">
+                        <li><a href="#dropbox" class="dropbox">Dropbox</a></li>
+                    </ul>
+                </section> -->
+            </div>
         </div>
     </div>
 
@@ -115,39 +59,56 @@
             <div class="content-padded">
                 <form action="/" id="editor">
                     <textarea name="note" id="note" cols="30" rows="10" data-title="Note Title">
-# Markdown Editor
+# Mímir: Markdown Editor
 
 _Hi! This is a markdown editor_
 
 What is markdown you ask? We'll you can find out more information here; [Markdown](http://daringfireball.net/projects/markdown/)
+
+- This
+- is a
+- list
+
+__Bolded content__
+
+~~ and strikethroughs~~
+
                     </textarea>
                 </form>
             </div>
         </div>
     </div>
 
-
-<!--
-    <script type="text/javascript" src="/lib/snap.js"></script>
--->
-
+    <!--
+    JavaScript Magic Fantastic
+    -->
+    <script type="text/javascript" src="js/libs.min.js"></script>
+    <script type="text/javascript" src="js/backbone.min.js"></script>
+    <script type="text/javascript" src="js/ui.min.js"></script>
     <script type="text/javascript" src="js/mimir.min.js"></script>
     <script type="text/javascript">
 
-        var
+        var snapper = new Snap({
+            element: document.getElementById('content')
+        });
+        $('#toggle-left').on('click', function(){
+            snapper.open('left');
+        });
+        $('.title').on('click', function(){
+            snapper.close('left');
+        });
+
+        //var
 
         // Helper
-        $ = function(id){
+        /*$ = function(id){
             return document.getElementById(id);
-        },
+        },*/
 
         // Instance
-        snapper = new Snap({
-            element: document.getElementById('content')
-        }),
 
         //
-        UpdateDrawers = function(){
+        /*UpdateDrawers = function(){
             var state = snapper.state(),
                 towards = state.info.towards,
                 opening = state.info.opening;
@@ -158,26 +119,15 @@ What is markdown you ask? We'll you can find out more information here; [Markdow
                 $('right-drawer').classList.remove('active-drawer');
                 $('left-drawer').classList.add('active-drawer');
             }
-        };
+        };*/
 
-        snapper.on('drag', UpdateDrawers);
+        /*snapper.on('drag', UpdateDrawers);
         snapper.on('animating', UpdateDrawers);
-        snapper.on('animated', UpdateDrawers);
+        snapper.on('animated', UpdateDrawers);*/
 
-        $('toggle-left').addEventListener('click', function(){
-            snapper.open('left');
-        });
+
+
     </script>
-
-<!--
-    <script src="lib/json2.js"></script>
-    <script src="lib/jquery.js"></script>
-    <script src="lib/underscore.js"></script>
-    <script src="lib/backbone.js"></script>
-    <script src="lib/backbone.localStorage.js"></script>
-    <script src="lib/backbone.touch.min.js"></script>
-    <script src="app.js"></script>
--->
 
     </body>
 </html>
