@@ -1,6 +1,13 @@
 {
   "name": "mimir",
   "version": "0.2.0",
+  "homepage": "http://mimir.io",
+  "author": "Stuart Runyan <shrunyan@gmail.com> (http://stuartrunyan.com)",
+  "respository": {
+    "type": "git",
+    "url": "https://github.com/shrunyan/mimir.git"
+  },
+  "license": "mit",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.1",
