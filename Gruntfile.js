@@ -12,7 +12,7 @@ module.exports = function(grunt) {
             dest: 'build/js/lib.js'
         },
         backbone: {
-            src: ['app/js/vendors/backbone.js', 'app/js/vendors/backbone.localStorage.js', 'app/js/vendors/backbone.touch.js'],
+            src: ['app/js/vendors/backbone.js', 'app/js/vendors/backbone.localStorage.js', 'app/js/vendors/backbone.touch.js', 'app/js/vendors/backbone.ModelBinder.js'],
             dest: 'build/js/backbone.js'
         },
         ui: {

@@ -103,23 +103,27 @@
     });
 
 
-
+    /**
+    * AppView - Main application view
+    */
+   // <span class="edit">&#9998;</span>
     mimir.AppView = Backbone.View.extend({
         el: '#app',
         editor: $('#editor textarea'),
         list: $('#notes'),
         notes: new mimir.Notes(),
+        model: mimir.Note,
         events: {
             'click .load' : 'loadNote',
             'click .save' : 'saveNote',
             'click .new-note' : 'newNote',
             //'click .menu' : 'menu',
-            'click .dropbox' : 'dropbox',
+            //'click .dropbox' : 'dropbox',
             'dblclick .load' : 'editNote',
             'click .edit' : 'editNote',
             'keyup #note' : 'saveNote'
         },
-        template: _.template('<li><a href="#load" class="load"><span class="title"><%- title %></span><span class="edit">&#9998;</span></a></li>'),
+        template: _.template('<li><a href="#load" class="load"><span class="title"><%- title %></span></a></li>'),
         initialize: function() {
             //console.log('AppView:initialize');
 
@@ -137,6 +141,8 @@
             this.list.append(this.template({
                 title: title
             }));
+            console.log(Backbone.modelBinder);
+            //this.modelBinder.bind(this.model, this.el);
         },
         loadNote: function(e) {
             //console.log('AppView:loadNote');
