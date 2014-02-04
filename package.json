@@ -1,5 +1,6 @@
 {
   "name": "mimir",
+  "description": "A Markdown note taking applicaiton",
   "version": "0.2.0",
   "homepage": "http://mimir.io",
   "author": "Stuart Runyan <shrunyan@gmail.com> (http://stuartrunyan.com)",
@@ -9,7 +10,7 @@
   },
   "license": "mit",
   "devDependencies": {
-    "grunt": "~0.4.1",
+    "grunt": "~0.4.2",
     "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-cssmin": "~0.6.1",
     "grunt-contrib-concat": "~0.3.0",

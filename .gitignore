@@ -37,3 +37,6 @@ nosetests.xml
 
 #Sublime Project File
 *.sublime*
+
+/build
+/node_modules
