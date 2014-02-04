@@ -10,6 +10,19 @@ _Markdown note taking web app_
 - [Zepto.js](http://zeptojs.com/) This library is used for DOM access. Like jQuery but a lot lighter.
 - [Dropbox](https://www.dropbox.com/developers) Used for saving notes as files and giving cross device access.
 
+## Setup
+
+1. Install dev dependencies
+
+	$ npm install
+
+2. Build application
+
+	$ grunt
+
+3. Server `/build` directory
+
+
 
 ## Coming Features:
 

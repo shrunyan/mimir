@@ -18,6 +18,10 @@ module.exports = function(grunt) {
         ui: {
             src: ['app/js/ratchet.js', 'app/js/snap.js'],
             dest: 'build/js/ui.js'
+        },
+        mimir: {
+            src: ['app/js/models/*', 'app/js/views/*', 'app/js/router.js'],
+            dest: 'build/js/mimir.app.js'
         }
     },
     uglify: {
