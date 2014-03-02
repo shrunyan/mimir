@@ -35,8 +35,10 @@ nosetests.xml
 .project
 .pydevproject
 
+
 #Sublime Project File
 *.sublime*
 
-/build
+/prod
 /node_modules
+/bower_components
