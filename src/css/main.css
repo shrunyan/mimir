@@ -73,10 +73,16 @@
 }
 #open-left {
     color: #FFF;
+    background: transparent;
+    border: none;
     font-size: 24px;
-    padding: 0 0 0 10px;
+    margin: 0;
+    padding: 0 20px 0 10px;
     line-height: 35px;
     vertical-align: middle;
+}
+#open-left:hover {
+    cursor: pointer;
 }
 
 /**
@@ -118,13 +124,20 @@
 #list nav {
     background: #FFF;
 }
-#list nav a {
+#list nav button {
     color: #333;
+    border: none;
+    background: none;
     display: block;
     font-family: 'entyporegular';
     font-size: 18px;
     margin: 3%;
     padding: 15px 10px;
+    text-align: left;
+    width: 100%;
+}
+#list nav button:hover {
+    cursor: pointer;
 }
 #list #notes li a {
     color: #333;

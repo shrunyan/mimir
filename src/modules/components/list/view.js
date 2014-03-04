@@ -9,9 +9,7 @@ define(function(require) {
 
 	var Model = require('components/list/model')
 	var View = Backbone.View.extend({
-		
-		//model: new Model(),
-		
+				
 		template: require('tmpl!./template'),
 		
 		events: {
@@ -20,13 +18,9 @@ define(function(require) {
 			'click .load': 'load',
 			'focusout input': 'setTitle'
 		},
-		
-		initialize: function initialize() {
-			//console.log('Initalizing List', this);
-		}, 
 
 		render: function render() {
-			console.log('Rendering List', this);
+			console.log('List:render', this);
 
 			this.$el.html( $(this.template( { 
 				notes: this.collection.toJSON()
@@ -39,29 +33,26 @@ define(function(require) {
 		 *	create
 		 *	Makes a new note
 		 */
-		create: function createNote() {
-			console.log('executing create', arguments);
+		create: function create() {
+			console.log('List:create', arguments);
 
-			var id = this.collection.length + 1;
-			var note = new NoteModel({
+			var id,
+					note,
+					view;
+
+			id = this.collection.length + 1;
+
+			note = new NoteModel({
 				id: id
 			});
-			var view = new NoteView({
+
+			view = new NoteView({
 				model: note 
 			});
 
-			this.collection.add( note )
+			this.collection.add( note ).saveLocalStorage();
 
 			this.$el.find('#notes').append( view.render().$el );
-		
-		},
-
-		/**
-		 * edit
-		 * Edit id of selected note in list context
-		 */
-		edit: function edit() {
-			console.log('executing edit', arguments);
 		},
 
 		/**
@@ -69,19 +60,28 @@ define(function(require) {
 		 *	Loads selected note in viewer
 		 */
 		load: function load( evt ) {
-			//console.log('executing load', arguments);
+			console.log('List:load', arguments);
 
 			var id = $(evt.target).parents('li').data('id');
+
 			this.collection.trigger( 'note:load', id );
 		},
+
+		/**
+		 * edit
+		 * Edit id of selected note in list context
+		 */
+		/*edit: function edit() {
+			console.log('List:edit', arguments);
+		},*/
 
 		/**
 		 *	setTitle
 		 *	Sets new title name to model
 		 */
-		setTitle: function setTitle() {
-			console.log('executing setTitle', arguments);
-		}
+		/*setTitle: function setTitle() {
+			console.log('List:setTitle', arguments);
+		}*/
 	});
 
 	return View;

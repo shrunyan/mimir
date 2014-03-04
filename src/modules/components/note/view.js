@@ -1,3 +1,6 @@
+/**
+ *	Note View
+ */
 define(function(require) {
 
 	var Backbone = require('backbone');
@@ -8,7 +11,7 @@ define(function(require) {
 		template: require('tmpl!./template'),
 
 		render: function render() {
-			console.log('Rendering Note', this);
+			console.log('Note:render', this);
 
 			this.$el.data( 'id', this.model.id );
 			this.$el.html( $( this.template( this.model.toJSON() )));
@@ -16,13 +19,13 @@ define(function(require) {
 			return this;
 		},
 
-		edit: function edit() {
-			console.log('executing edit', arguments);
+		/*edit: function edit() {
+			console.log('Note:edit', arguments);
 		},
 
 		load: function load() {
-			console.log('executing load', arguments);
-		}
+			console.log('Note:load', arguments);
+		}*/
 		
 	});
 

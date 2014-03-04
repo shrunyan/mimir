@@ -1,14 +1,14 @@
 <div class="snap-drawer snap-drawer-left" id="left-drawer">
   <nav>
-    <a href="#" class="new">New &oplus;</a>
+    <button class="new">New &oplus;</button>
   </nav>
   <ul id="notes" class="list">
     
     <% 
-    _.each( notes, function( note, key, list ) {
+    _.each( notes, function( note ) {
     %>
       <li data-id="<%= note.id %>">
-        <a href="#" class="load">
+        <a href="/note/<%= note.id %>" class="load">
           <span class="title"><%- note.title %></span>
           <span class="edit">&#9998;</span>
         </a>

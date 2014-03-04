@@ -19,13 +19,11 @@
     },
 
     menu: function menu() {
-      console.log('Navigate to "/menu"', this);
       app.menu();
     },
 
     note: function note( id ) {
-      console.log('Navigate to "/note"', this, id);
-      //app.render();
+      app.render().childViews.editor.load( id );
     }
     
 

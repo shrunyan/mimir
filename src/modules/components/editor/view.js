@@ -24,16 +24,12 @@ define(function(require) {
 		},
 
 		initialize: function initialize() {
-			
-			// Load blank note on instaniation
-			// this.model.set( 'note', '');
-
 			this.listenTo( this.collection, 'note:load', this.load );
 			this.listenTo( this.collection, 'note:save', this.save );
 		}, 
 
 		render: function render() {
-			console.log('Rendering Editor', this);
+			console.log('Editor:render', this);
 			
 			this.$el.html( $( this.template( this.model.toJSON() )));
 
@@ -41,29 +37,35 @@ define(function(require) {
 		},
 
 		save: function save() {
-			console.log('executing save', arguments);
+			console.log('Editor:save', arguments);
 
-			var content = this.$el.find( 'textarea' ).val();
+			var content;
+
+			content = this.$el.find( 'textarea' ).val();
 			
 			this.model.set( 'note', content );
 
 			this.collection.saveNote( this.model );
 
-			/*localStorage.removeItem( this.model.get( 'id' ) );
-			localStorage.setItem( this.model.get( 'id' ), JSON.stringify(this.model.toJSON()) );*/
-
+			return this;
 		},
 
 		load: function load( id ) {
-			console.log('executing load', arguments);
+			console.log('Editor:load', arguments);
 
-			var note = this.collection.get( id );
+			var note;
 
-			this.model = note;
-			this.$el.data( 'id', id);
-			this.render();
+			note = this.collection.get( id );
 
-			this.collection.setLast( id );
+			if ( note ) {
+			
+				this.model = note;
+				this.$el.data( 'id', id);
+				this.render();
+
+				this.collection.setLast( id );
+			
+			}
 
 		}
 

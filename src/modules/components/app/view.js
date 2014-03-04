@@ -33,45 +33,45 @@ define(function(require) {
 
 		initialize: function initialize() {
 
-			var notes = this.getNotes();
-			this.notes = new Collection( notes );
+			this.notes = new Collection( this.loadLocalNotes() );
 
 			this.childViews = {};
-			
+
 			this.childViews.editor = new Editor({
 				model: this.getLastNote(),
 				collection: this.notes
-			}).render();
-
+			});
 			this.childViews.list = new List({
 				collection: this.notes
-			}).render();
+			});
 
 			this.listenTo( this.notes, 'note:load', this.closeMenu)
-		
 		},
 
-		render: function render() {
-			console.log('Rendering app', this);
+		render: function render( id ) {
+			console.log('App:render', this);
 
 			this.$el.html( $( this.template( {} )));
 
-			this.$('#editor').html( this.childViews.editor.$el );
+			this.$('#editor').html( this.childViews.editor.render().$el );
 
-			this.$('#list').html( this.childViews.list.$el );
+			this.$('#list').html( this.childViews.list.render().$el );
 
 			$('body').append( this.$el );
 
 			// Setup after menu's been added to DOM
 			// Needs to use native DOM selector, zepto breaks
 			this.drawer = new Snap({
-				element: document.getElementById( 'editor' )
+				element: document.getElementById( 'editor' ),
+				disable: 'right'
 			});
 
 			return this;
 		},
 
-		toggleMenu: function menu() {			
+		toggleMenu: function menu() {
+			console.log('App:toggleMenu', arguments);
+
 			if( this.drawer.state().state=="left" ){
 			  this.drawer.close();
 			} else {
@@ -80,11 +80,12 @@ define(function(require) {
 		},
 
 		closeMenu: function closeMenu() {
+			console.log('App:closeMenu', arguments);
 			this.drawer.close();
 		},
 
 		onKey: function onKey( evt ) {
-			console.log('executing onKey', arguments);
+			//console.log('App:onKey', arguments);
 
 			// save on ctrl + s
 			if ( ( evt.which == 19 ) || evt.which == 115 && ( evt.ctrlKey || evt.metaKey ) ) {
@@ -100,19 +101,20 @@ define(function(require) {
 		},
 
 
-		getNotes: function getNotes() {
+		loadLocalNotes: function loadLocalNotes() {
+			console.log('App:loadLocalNotes', arguments);
 
-			var self = this;
-			var notes = [];
+			var self = this,
+					notes = [];
 			
-			_.each( localStorage, function( value, key, list ) {
+			_.each( localStorage, function( note ) {
 
-				if ( value ) {
+				if ( note ) {
 
-					var value = JSON.parse( value );
+					note = JSON.parse( note );
 
-					if ( value.id ) {
-						notes.push( value );
+					if ( note.id ) {
+						notes.push( note );
 					}
 
 				}
@@ -123,22 +125,31 @@ define(function(require) {
 		},
 
 		setLastNote: function setLastNote( id ) {
+			console.log('App:setLastNote', arguments);
+
 			localStorage.setItem( 'lastNote', id );
 		},
 
 		getLastNote: function getLastNote() {
+			console.log('App:getLastNote', arguments);
 
-			var lastNote = localStorage.getItem( 'lastNote' );
-			var lastNoteModel = this.notes.get( lastNote )
+			var lastNoteId = localStorage.getItem( 'lastNote' ),
+					lastNoteModel = this.notes.get( lastNoteId ),
+					note;
 
-			if ( lastNoteModel ) {
-				return lastNoteModel;
-			}
+			if ( lastNoteModel ) return lastNoteModel;
 
-			//this.setLastNote( 0 );
-			return new Note({
+			note = new Note({
+				'id': 1,
+				'title': 'Your First Note',
 				'note': 'Hi! This is your first note.'
 			});
+
+			this.notes.set( note ).saveLocalStorage();
+
+			this.setLastNote( note.id );
+
+			return note;
 
 		}
 
