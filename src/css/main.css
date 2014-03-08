@@ -54,7 +54,6 @@
 }
 
 
-
 /**
  * Main Styles
  */
@@ -71,19 +70,27 @@
     position: absolute;
     z-index: 100;
 }
+.bar-title .title {
+    z-index: 110;
+/*    position: relative;
+    text-align: left;*/
+}
 #open-left {
     color: #FFF;
     background: transparent;
     border: none;
     font-size: 24px;
+    line-height: 35px;
     margin: 0;
     padding: 0 20px 0 10px;
-    line-height: 35px;
+    position: relative;
     vertical-align: middle;
+    z-index: 120;
 }
 #open-left:hover {
     cursor: pointer;
 }
+
 
 /**
  * Drawers
@@ -114,7 +121,7 @@
 /**
  * Note List
  */
- #list {
+#list {
     background-color: #444;
     color: #FFF;
     margin: 44px 0 0 0;
@@ -139,33 +146,41 @@
 #list nav button:hover {
     cursor: pointer;
 }
-#list #notes li a {
-    color: #333;
+#list #notes {
+    background: inherit;
+}
+#list #notes li {
+    margin: 0;
+    padding: 10px 0;
+}
+#list #notes li .load {
+    display: block;
+    line-height: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0 15px;
+    vertical-align: middle;
+    width: 89%;
+}
+#list #notes li .newTitle {
+    width: 79%;
+    height: 30px;
+    margin: 5px 0 5px 15px;
+    padding: 0;
 }
 #list #notes li .edit {
     font-family: 'entyporegular';
+    z-index: 100;
+    cursor: pointer;
     position: absolute;
-    top: 35%;
-    right: 5%;
+    right: 0;
+    top: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    height: 60px;
+    width: 40px;
 }
-
-/*#notes li {
-    margin: 0;
-    padding: 0;
-}
-#notes .load {
-    display: block;
-    margin: 0;
-    padding: 1em;
-    position: relative;
-    width: ;
-}
-#notes .edit {
-    font-family: 'entyporegular';
-    position: absolute;
-    top: 35%;
-    right: 5%;
-}*/
 
 
 /**
@@ -186,14 +201,3 @@
     height: 100%;
     width: 100%;
 }
-
-
-
-/*#app .content-padded {
-    padding: 2em;
-}
-#app .content-padded,
-#editor {
-    height: 100%;
-}
-*/

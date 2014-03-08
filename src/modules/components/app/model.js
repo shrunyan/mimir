@@ -1,15 +1,23 @@
 /**
  *	App Main Model
  */
- define(function(require) {
+ define(function( require ) {
 
-	var Backbone = require('backbone');
-	var Model = Backbone.Model.extend({
-		defaults: {
-			'title': 'Mímir'
-		}
-	});
+    "use strict";
 
-	return Model;
+
+    var Backbone, Model;
+
+    Backbone = require('backbone');
+
+    Model = Backbone.Model.extend({
+
+        defaults: {
+            'title': 'Mímir'
+        }
+
+    });
+
+    return Model;
 
 });

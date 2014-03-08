@@ -13,9 +13,14 @@ define(function(require) {
 
     "use strict";
 
-    var Backbone = require('backbone');
-    var $ = require('zepto');
 
+    var Backbone, $;
+
+    Backbone = require('backbone');
+
+    $ = require('zepto');
+
+    // This Kicks off the whole party
     require('core/router');
 
     Backbone.history.start({
@@ -23,14 +28,12 @@ define(function(require) {
         root: "/"
     });
 
-    $('.javascript-off').hide();
-
 
     // All navigation that is relative should be passed through the navigate
     // method, to be processed by the router. If the link has a `data-bypass`
     // attribute, bypass the delegation completely.
-    // No bypass: "a[href^='#']:not([data-bypass])", 
-    /*$(document).on("click", function(evt) {
+    // No bypass: "a[href^='#']:not([data-bypass])",
+    $( document ).on( 'click', function( evt ) {
 
         // Prevent the default event (including page refresh).
         evt.preventDefault();
@@ -38,8 +41,9 @@ define(function(require) {
         // `Backbone.history.navigate` is sufficient for all Routers and will
         // trigger the correct events. The Router's internal `navigate` method
         // calls this anyways. The fragment is sliced from the root.
-        var href = $(evt.target).attr("href");
-        Backbone.history.navigate(href, true);
-    });*/
+        //var href = $( evt.target ).attr( 'href' );
+        //Backbone.history.navigate( href, true );
+
+    });
 
 });
