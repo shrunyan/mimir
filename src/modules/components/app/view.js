@@ -39,6 +39,9 @@ define(function( require ) {
         },
 
         initialize: function initialize() {
+            console.log('AppView:initialize', this);
+
+            //this.getLastNoteId();
 
             this.notes = new Collection( this.loadLocalNotes() );
 
@@ -61,13 +64,13 @@ define(function( require ) {
         },
 
         render: function render( id ) {
-            console.log('App:render', this);
+            console.log('AppView:render', arguments, this);
 
             this.$el.html( $( this.template() ));
 
-            this.$('#editor').html( this.childViews.editor.render().$el );
+            this.$el.find('#editor').html( this.childViews.editor.render().$el );
 
-            this.$('#list').html( this.childViews.list.render().$el );
+            this.$el.find('#list').html( this.childViews.list.render().$el );
 
             $('body').append( this.$el );
 
@@ -81,8 +84,8 @@ define(function( require ) {
             return this;
         },
 
-        toggleMenu: function menu( evt ) {
-            console.log('App:toggleMenu', arguments);
+        toggleMenu: function toggleMenu( evt ) {
+            console.log('AppView:toggleMenu', arguments);
 
             if ( this.drawer.state().state === 'left' ) {
 
@@ -96,7 +99,7 @@ define(function( require ) {
         },
 
         closeMenu: function closeMenu() {
-            console.log('App:closeMenu', arguments);
+            console.log('AppView:closeMenu', arguments);
 
             this.drawer.close();
         },
@@ -116,7 +119,7 @@ define(function( require ) {
          *           in the application and save
          */
         onKey: function onKey( evt ) {
-            console.log('App:onKey', arguments);
+            console.log('AppView:onKey', arguments);
 
             // save on ctrl + s
             if ( ( evt.which == 19 ) || evt.which == 115 && ( evt.ctrlKey || evt.metaKey ) ) {
@@ -134,7 +137,7 @@ define(function( require ) {
 
 
         loadLocalNotes: function loadLocalNotes() {
-            console.log('App:loadLocalNotes', arguments);
+            console.log('AppView:loadLocalNotes', arguments);
 
             var self = this,
                 notes = [];
@@ -157,33 +160,61 @@ define(function( require ) {
         },
 
         setLastNote: function setLastNote( id ) {
-            console.log('App:setLastNote', arguments);
+            console.log('AppView:setLastNote', arguments);
 
             this.note.trigger( 'note:last', id );
         },
 
         getLastNote: function getLastNote() {
-            console.log('App:getLastNote', arguments);
+            console.log('AppView:getLastNote', arguments);
 
-            var lastNoteId, lastNoteModel, note;
+            var lastNoteId, lastNoteModel, notes = [], note;
 
             lastNoteId = localStorage.getItem( 'lastNote' );
 
-            lastNoteModel = this.notes.get( lastNoteId );
+            note = this.notes.get( lastNoteId );
 
-            if ( lastNoteModel ) return lastNoteModel;
+            if ( note ) {
 
-            note = new Note({
-                'id': 1,
-                'title': 'Your First Note',
-                'note': 'Hi! This is your first note.'
-            });
+                return note;
 
-            this.notes.trigger( 'note:save', note );
+            }
+            else {
 
-            this.notes.trigger( 'note:last', note.id );
+                for (var i = localStorage.length - 1; i >= 0; i--) {
 
-            return note;
+                    notes.push( localStorage.getItem( localStorage.key( i )));
+
+                };
+
+                note = JSON.parse( notes.pop() );
+
+                if ( note.id ) {
+
+                    this.notes.trigger( 'note:last', note.id );
+
+                    return this.notes.get( note );
+
+                }
+                else {
+
+                    note = new Note({
+                        'id': 1,
+                        'title': 'Your First Note',
+                        'note': 'Hi! This is your first note.'
+                    });
+
+                    this.notes.trigger( 'note:save', note );
+
+                    this.notes.trigger( 'note:last', note.id );
+
+                    return note;
+                }
+
+            }
+
+            console.log('Something went horribly wrong');
+            //return new Note();
 
         }
 
