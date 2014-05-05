@@ -1,5 +1,5 @@
 /**
- *    List View
+ *    NotesView View
  */
 define(function(require) {
 
@@ -30,7 +30,7 @@ define(function(require) {
         },
 
         render: function render() {
-            console.log('List:render', this);
+            console.log('NotesView:render', this);
 
             this.$el.html( $(this.template( {
                 notes: this.collection.toJSON()
@@ -44,7 +44,7 @@ define(function(require) {
          *  Makes a new note
          */
         create: function create() {
-            console.log('List:create', arguments, this);
+            console.log('NotesView:create', arguments, this);
 
             var id, note, view;
 
@@ -68,7 +68,7 @@ define(function(require) {
          *  Loads selected note in viewer
          */
         load: function load( evt ) {
-            console.log('List:load', arguments, this);
+            console.log('NotesView:load', arguments, this);
 
             var id = $( evt.target ).parents( 'li' ).data( 'id' );
 
@@ -76,6 +76,10 @@ define(function(require) {
 
                 this.parent.router.navigate( '/note/' + id );
 
+                //TODO: Why am I directly triggering the note load on the collection?
+                // the route should trigger loading the note.
+                // just like if a note url was linked to directly it should load
+                // the note into all the necessary views
                 this.collection.trigger( 'note:load', id );
 
             } else {
@@ -87,10 +91,10 @@ define(function(require) {
 
         /**
          * edit
-         * Edit id of selected note in list context
+         * Edit id of selected note in NotesView context
          */
         edit: function edit( evt ) {
-            console.log('List:edit', arguments, this);
+            console.log('NotesView:edit', arguments, this);
 
             var $li = $( evt.target ).parents( 'li' );
 
@@ -113,7 +117,7 @@ define(function(require) {
          *  Sets new title name to model
          */
         setTitle: function setTitle( evt ) {
-            console.log('List:setTitle', arguments, this);
+            console.log('NotesView:setTitle', arguments, this);
 
             var $input, $li, id, title, note;
 

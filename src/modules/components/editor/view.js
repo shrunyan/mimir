@@ -1,5 +1,5 @@
 /**
- *	Editor View
+ *	EditorView
  */
 define(function(require) {
 
@@ -29,7 +29,7 @@ define(function(require) {
 		},
 
 		initialize: function initialize() {
-            console.log('Editor:initialize', this);
+            console.log('EditorView:initialize', this);
 
             this.listenTo( this.collection, 'note:load', this.load );
 
@@ -37,7 +37,7 @@ define(function(require) {
 		},
 
 		render: function render() {
-			console.log('Editor:render', this);
+			console.log('EditorView:render', this);
 
 			this.$el.html( $( this.template( this.model.toJSON() )));
 
@@ -45,7 +45,7 @@ define(function(require) {
 		},
 
 		save: function save() {
-			console.log('Editor:save', arguments, this);
+			console.log('EditorView:save', arguments, this);
 
 			var content = this.$el.find( 'textarea' ).val();
 
@@ -57,11 +57,13 @@ define(function(require) {
 		},
 
 		load: function load( id ) {
-			console.log('Editor:load', arguments, this);
+			console.log('EditorView:load', arguments, this);
 
             var note = this.collection.get( id );
 
 			if ( note ) {
+
+                console.log( note );
 
 				this.model = note;
 

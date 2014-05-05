@@ -17,7 +17,7 @@ define(function(require) {
 		template: require('tmpl!./template'),
 
 		render: function render() {
-			console.log('Note:render', this);
+			console.log('NoteView:render', this);
 
 			this.$el.data( 'id', this.model.id );
 

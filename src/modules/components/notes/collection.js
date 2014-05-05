@@ -1,5 +1,5 @@
 /**
- *    Notes Collection
+ *    NotesCollection
  */
 define(function(require) {
 
@@ -19,7 +19,7 @@ define(function(require) {
 		model: Note,
 
 		initialize: function initialize() {
-            console.log('Notes:initialize', arguments, this);
+            console.log('NotesCollection:initialize', this);
 
             this.on( 'note:save add', this.save, this );
             this.on( 'note:load', this.load, this );
@@ -28,14 +28,15 @@ define(function(require) {
         },
 
 		setLast: function setLast( id ) {
-            console.log('Notes:setLast', arguments, this);
+            console.log('NotesCollection:setLast', arguments, this);
 
 			this.last = id;
+
 			localStorage.setItem( 'lastNote', id );
 		},
 
 		save: function save( note ) {
-            console.log('Notes:saveNote', arguments, this);
+            console.log('NotesCollection:saveNote', arguments, this);
 
 			this.set( note, {
 				merge: true,
@@ -53,7 +54,7 @@ define(function(require) {
 		},
 
         load: function load( id ) {
-            console.log('Notes:load', arguments, this);
+            console.log('NotesCollection:load', arguments, this);
 
             var note = this.get( id );
 
