@@ -41,8 +41,6 @@ define(function( require ) {
         initialize: function initialize() {
             console.log('AppView:initialize', this);
 
-            //this.getLastNoteId();
-
             this.notes = new Collection( this.loadLocalNotes() );
 
             this.childViews = {};
@@ -108,7 +106,7 @@ define(function( require ) {
 
             var note = this.notes.get( id );
 
-            this.$el.find( '.title' ).text( note.get( 'title' ));
+            this.$el.find( '.list li[data-id="'+ id +'"] .title' ).text( note.get( 'title' ));
 
             this.closeMenu();
 
