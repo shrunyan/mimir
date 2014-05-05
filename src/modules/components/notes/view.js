@@ -137,6 +137,8 @@ define(function(require) {
 
                 this.collection.trigger( 'note:save', note );
 
+                this.collection.trigger( 'note:load', id );
+
                 this.render();
 
             }
