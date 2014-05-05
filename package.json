@@ -1,7 +1,7 @@
 {
   "name": "mimir",
   "description": "A Markdown note taking applicaiton",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "http://mimir.io",
   "author": "Stuart Runyan <shrunyan@gmail.com> (http://stuartrunyan.com)",
   "respository": {
@@ -19,8 +19,5 @@
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-connect": "~0.6.0",
     "grunt-contrib-watch": "~0.5.3"
-  },
-  "dependencies": {
-    "domify": "~1.2.2"
   }
 }
