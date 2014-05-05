@@ -140,6 +140,13 @@ define(function(require) {
                 this.render();
 
             }
+            else {
+
+                $li.find( '.load' ).toggle();
+
+                $li.find( '.newTitle' ).toggle();
+
+            }
 
         }
     });
