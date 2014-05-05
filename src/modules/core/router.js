@@ -25,7 +25,8 @@ define(function(require) {
         routes: {
             "": "index",
             "note/:id": "note",
-            "settings": "settings"
+            "settings": "settings",
+            "/*": "error404"
         },
 
         index: function index() {
@@ -33,12 +34,20 @@ define(function(require) {
         },
 
         note: function note( id ) {
+
+            //TODO: Figure out a place to check if note id exists,
+            // otherwise 404
+
             this.app.render();
             this.app.notes.trigger( 'note:load', id );
         },
 
         settings: function settings () {
             alert('Coming soon.');
+        },
+
+        error404: function error404 () {
+            alert('Note not found');
         }
 
     });

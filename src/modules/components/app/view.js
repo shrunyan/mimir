@@ -54,8 +54,8 @@ define(function( require ) {
                 collection: this.notes
             });
 
-            // Give List reference to app
-            // So it can use the router
+            // TODO: instead of giving a reference to the child
+            // the child should use pubsub to emit events
             this.childViews.list.parent = this;
 
             this.listenTo( this.notes, 'note:load', this.setTitle)
