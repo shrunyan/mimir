@@ -25,6 +25,7 @@ define(function(require) {
         routes: {
             "": "index",
             "note/:id": "note",
+            "settings": "settings"
         },
 
         index: function index() {
@@ -34,6 +35,10 @@ define(function(require) {
         note: function note( id ) {
             this.app.render();
             this.app.notes.trigger( 'note:load', id );
+        },
+
+        settings: function settings () {
+            alert('Coming soon.');
         }
 
     });
