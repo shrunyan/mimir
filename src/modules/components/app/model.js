@@ -6,11 +6,8 @@
     "use strict";
 
 
-    var Backbone, Model;
-
-    Backbone = require('backbone');
-
-    Model = Backbone.Model.extend({
+    var Backbone = require('backbone');
+    var Model = Backbone.Model.extend({
 
         defaults: {
             'title': 'Mímir'

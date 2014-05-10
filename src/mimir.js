@@ -14,11 +14,9 @@ define(function(require) {
     "use strict";
 
 
-    var Backbone, $;
-
-    Backbone = require('backbone');
-
-    $ = require('zepto');
+    var Backbone = require('backbone'),
+        $ = require('zepto'),
+        Router = require('core/router');
 
     // This Kicks off the whole party
     require('core/router');

@@ -6,13 +6,11 @@ define(function(require) {
 	"use strict";
 
 
-    var Backbone, Note, Collection;
+    var Backbone = require('backbone'),
+        Note = require('components/note/model'),
+        pubsub = require('core/pubsub');
 
-    Backbone = require('backbone');
-
-    Note = require('components/note/model');
-
-    Collection = Backbone.Collection.extend({
+    var Collection = Backbone.Collection.extend({
 
 		last: 0,
 
@@ -21,9 +19,9 @@ define(function(require) {
 		initialize: function initialize() {
             console.log('NotesCollection:initialize', this);
 
-            this.on( 'note:save add', this.save, this );
-            this.on( 'note:load', this.load, this );
-            this.on( 'note:last', this.setLast, this );
+            this.listenTo( pubsub, 'note:save add', this.save );
+            this.listenTo( pubsub, 'note:load', this.load );
+            this.listenTo( pubsub, 'note:last', this.setLast );
 
         },
 

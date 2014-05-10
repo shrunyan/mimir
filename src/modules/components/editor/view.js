@@ -6,15 +6,12 @@ define(function(require) {
 	"use strict";
 
 
-    var Backbone, Snap, Note, View;
+    var Backbone = require('backbone'),
+        Snap = require('snap'),
+        Note = require('components/note/model'),
+        pubsub = require('core/pubsub');
 
-    Backbone = require('backbone');
-
-    Snap = require('snap');
-
-    Note = require('components/note/model');
-
-    View = Backbone.View.extend({
+    var View = Backbone.View.extend({
 
 		tag: 'div',
 
@@ -29,10 +26,8 @@ define(function(require) {
 		},
 
 		initialize: function initialize() {
-            console.log('EditorView:initialize', this);
-
-            this.listenTo( this.collection, 'note:load', this.load );
-
+            // console.log('EditorView:initialize', this);
+            this.listenTo( pubsub, 'note:load', this.load );
             //this.listenTo( this.collection, 'note:save', this.save );
 		},
 
@@ -51,7 +46,7 @@ define(function(require) {
 
 			this.model.set( 'note', content );
 
-            this.collection.trigger( 'note:save', this.model );
+            pubsub.trigger( 'note:save', this.model );
 
 			return this;
 		},

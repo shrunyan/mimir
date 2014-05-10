@@ -6,11 +6,8 @@ define(function(require) {
 	"use strict";
 
 
-    var Backbone, View;
-
-    Backbone = require('backbone');
-
-    View = Backbone.View.extend({
+    var Backbone = require('backbone');
+    var View = Backbone.View.extend({
 
 		tagName: 'li',
 

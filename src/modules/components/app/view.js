@@ -7,32 +7,22 @@ define(function( require ) {
     "use strict";
 
 
-    var _, $, Backbone, Snap, Editor, List, Collection, Note, View;
+    var _ = require('underscore'),
+        $ = require('zepto'),
+        Backbone = require('backbone'),
+        Snap = require('snap'),
+        Editor = require('components/editor/view'),
+        List = require('components/notes/view'),
+        Collection = require('components/notes/collection'),
+        Note = require('components/note/model'),
+        pubsub = require('core/pubsub');
 
-    _ = require('underscore');
 
-    $ = require('zepto');
-
-    Backbone = require('backbone');
-
-    Snap = require('snap');
-
-    Editor = require('components/editor/view');
-
-    List = require('components/notes/view');
-
-    Collection = require('components/notes/collection');
-
-    Note = require('components/note/model');
-
-    View = Backbone.View.extend({
+    var View = Backbone.View.extend({
 
         id: 'app',
-
         tagName: 'div',
-
         template: require('tmpl!./template'),
-
         events: {
             'click #open-left': 'toggleMenu',
             'keypress': 'onKey'
@@ -43,22 +33,20 @@ define(function( require ) {
 
             this.notes = new Collection( this.loadLocalNotes() );
 
-            this.childViews = {};
-
-            this.childViews.editor = new Editor({
-                model: this.getLastNote(),
-                collection: this.notes
-            });
-
-            this.childViews.list = new List({
-                collection: this.notes
-            });
+            this.childViews = {
+                'editor': new Editor({
+                    model: new Note(),
+                    collection: this.notes
+                }),
+                'list': new List({ collection: this.notes })
+            };
 
             // TODO: instead of giving a reference to the child
             // the child should use pubsub to emit events
             this.childViews.list.parent = this;
 
-            this.listenTo( this.notes, 'note:load', this.setTitle)
+            this.listenTo( pubsub, 'note:load', this.closeMenu );
+            this.listenTo( pubsub, 'note:load', this.setTitle );
         },
 
         render: function render( id ) {
@@ -73,11 +61,14 @@ define(function( require ) {
             $('body').append( this.$el );
 
             // Setup after menu's been added to DOM
-            // Needs to use native DOM selector, zepto breaks
+            // Needs to use native DOM selector, zepto object breaks
             this.drawer = new Snap({
                 element: document.getElementById( 'editor' ),
                 disable: 'right'
             });
+
+            // Load last edited note
+            pubsub.trigger( 'note:load', this.getLastNote() );
 
             return this;
         },
@@ -106,9 +97,7 @@ define(function( require ) {
 
             var note = this.notes.get( id );
 
-            this.$el.find( '.list li[data-id="'+ id +'"] .title' ).text( note.get( 'title' ));
-
-            this.closeMenu();
+            this.$el.find( '.bar-title .title' ).text( note.get( 'title' ));
 
         },
 
@@ -124,7 +113,7 @@ define(function( require ) {
 
                 evt.preventDefault();
 
-                this.notes.trigger( 'note:save' );
+                pubsub.trigger( 'note:save' );
 
                 return false;
             }
@@ -140,75 +129,73 @@ define(function( require ) {
             var self = this,
                 notes = [];
 
-            _.each( localStorage, function( note ) {
+            if ( localStorage.length ) {
 
-                if ( note ) {
+                _.each( localStorage, function( note ) {
 
-                    note = JSON.parse( note );
+                    if ( note ) {
 
-                    if ( note.id ) {
-                        notes.push( note );
+                        note = JSON.parse( note );
+
+                        if ( note.id ) notes.push( note );
+
                     }
 
-                }
+                });
 
-            });
+            }
 
             return notes;
         },
 
         setLastNote: function setLastNote( id ) {
             console.log('AppView:setLastNote', arguments);
-
-            this.note.trigger( 'note:last', id );
+            pubsub.trigger( 'note:last', id );
         },
 
         getLastNote: function getLastNote() {
             console.log('AppView:getLastNote', arguments);
 
-            var lastNoteId, lastNoteModel, notes = [], note;
+            var lastNoteId = localStorage.getItem( 'lastNote' ),
+                lastNoteModel,
+                notes = [],
+                note = this.notes.get( lastNoteId );
 
-            lastNoteId = localStorage.getItem( 'lastNote' );
 
-            note = this.notes.get( lastNoteId );
+            if ( note && note.id ) return note;
 
-            if ( note ) {
+            // Else check if any notes exist
+            for ( var i = localStorage.length - 1; i >= 0; i-- ) {
 
-                return note;
+                notes.push( localStorage.getItem( localStorage.key( i )));
 
-            }
-            else {
+            };
 
-                for (var i = localStorage.length - 1; i >= 0; i--) {
-
-                    notes.push( localStorage.getItem( localStorage.key( i )));
-
-                };
+            if ( notes.length ) {
 
                 note = JSON.parse( notes.pop() );
 
                 if ( note.id ) {
 
-                    this.notes.trigger( 'note:last', note.id );
+                    pubsub.trigger( 'note:last', note.id );
 
                     return this.notes.get( note );
 
                 }
-                else {
 
-                    note = new Note({
-                        'id': 1,
-                        'title': 'Your First Note',
-                        'note': 'Hi! This is your first note.'
-                    });
+            }
+            else {
 
-                    this.notes.trigger( 'note:save', note );
+                note = new Note({
+                    'id': 1,
+                    'title': 'Your First Note',
+                    'note': 'Hi! This is your first note.'
+                });
 
-                    this.notes.trigger( 'note:last', note.id );
+                pubsub.trigger( 'note:save', note );
+                pubsub.trigger( 'note:last', note.id );
 
-                    return note;
-                }
-
+                return note;
             }
 
             console.log('Something went horribly wrong');

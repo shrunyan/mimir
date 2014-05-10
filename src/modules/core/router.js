@@ -6,20 +6,18 @@ define(function(require) {
     "use strict";
 
 
-    var Backbone, AppView, Router;
+    var _ = require('underscore'),
+        $ = require('zepto'),
+        Backbone = require('backbone'),
+        AppView = require('components/app/view'),
+        pusub = require('core/pubsub');
 
-    Backbone = require('backbone');
-
-    AppView = require('components/app/view');
-
-    Router = Backbone.Router.extend({
+    var Router = Backbone.Router.extend({
 
         app: new AppView(),
 
         initialize: function initialize() {
-
             this.app.router = this;
-
         },
 
         routes: {
@@ -39,7 +37,7 @@ define(function(require) {
             // otherwise 404
 
             this.app.render();
-            this.app.notes.trigger( 'note:load', id );
+            pusub.trigger( 'note:load', id );
         },
 
         settings: function settings () {
