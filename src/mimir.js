@@ -15,8 +15,7 @@ define(function(require) {
 
 
     var Backbone = require('backbone'),
-        $ = require('zepto'),
-        Router = require('core/router');
+        $ = require('zepto');
 
     // This Kicks off the whole party
     require('core/router');
