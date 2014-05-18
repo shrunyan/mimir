@@ -25,6 +25,7 @@
     "snapjs": "*",
     "Snap": "https://github.com/jakiestfu/Snap.js/",
     "requirejs": "~2.1.10",
-    "lodash-template-loader": "~0.1.5"
+    "lodash-template-loader": "~0.1.5",
+    "showdown": "~0.3.1"
   }
 }

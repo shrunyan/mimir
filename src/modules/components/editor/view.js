@@ -9,7 +9,9 @@ define(function(require) {
     var Backbone = require('backbone'),
         Snap = require('snap'),
         Note = require('components/note/model'),
-        pubsub = require('core/pubsub');
+        pubsub = require('core/pubsub'),
+        Showdown = require('showdown'),
+        converter = new Showdown.converter();
 
     var View = Backbone.View.extend({
 
@@ -26,7 +28,6 @@ define(function(require) {
 		},
 
 		initialize: function initialize() {
-            // console.log('EditorView:initialize', this);
             this.listenTo( pubsub, 'note:load', this.load );
             //this.listenTo( this.collection, 'note:save', this.save );
 		},
@@ -35,6 +36,10 @@ define(function(require) {
 			console.log('EditorView:render', this);
 
 			this.$el.html( $( this.template( this.model.toJSON() )));
+
+
+            // var val = this.$el.find('textarea').val();
+            // this.$el.find('.preview').html( converter.makeHtml( val ) );
 
 			return this;
 		},

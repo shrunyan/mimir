@@ -7,6 +7,7 @@ require.config({
     lodash: 'bower_components/lodash/dist/lodash',
     tmpl: "bower_components/lodash-template-loader/loader",
     snap: "bower_components/snapjs/snap",
+    showdown: 'bower_components/showdown/src/showdown',
     components: 'src/modules/components',
     core: 'src/modules/core',
   },
