@@ -35,3 +35,6 @@ dist/
 
 # Build
 build/
+
+# Compile
+compile/
